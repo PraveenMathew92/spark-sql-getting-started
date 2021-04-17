@@ -1,6 +1,7 @@
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.*;
 
 public class SparkSQL {
     private static final String JSON_FILE_PATH =
@@ -16,10 +17,16 @@ public class SparkSQL {
                 .getOrCreate();
 
         // Read the python data set
-        Dataset<Row> json = sparkSession.read()
+        Dataset<Row> dataframe = sparkSession.read()
                 .json(JSON_FILE_PATH);
 
-        json.show();
-        json.printSchema();
+        // Display the Dataframe with the contents
+        dataframe.show();
+
+        // Show only one column of the dataframe
+        dataframe.select("histogram").show();
+
+        // Print the json schema of the dataframe
+        dataframe.printSchema();
     }
 }
