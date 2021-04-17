@@ -1,7 +1,6 @@
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.types.*;
 
 public class SparkSQL {
     private static final String JSON_FILE_PATH =
@@ -28,5 +27,10 @@ public class SparkSQL {
 
         // Print the json schema of the dataframe
         dataframe.printSchema();
+
+        // Use SQL on Dataframe
+        dataframe.createOrReplaceTempView("dataframeView");
+        sparkSession.sql("SELECT speed FROM dataframeView")
+                    .show();
     }
 }
