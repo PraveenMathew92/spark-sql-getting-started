@@ -2,9 +2,8 @@
 
 > dataframe.show();
 
-+------+--------------------+------+------+----------+-----+-----+--------------------+
 |errors|           histogram|layout|length|lessonType|speed| time|           timeStamp|
-+------+--------------------+------+------+----------+-----+-----+--------------------+
+|------|--------------------|------|------|----------|-----|-----|--------------------|
 |    10|[[32, 23, 0, 352]...|    us|   127|      auto|  141|53900|2021-01-14T16:32:...|
 |    12|[[32, 22, 2, 295]...|    us|   122|      auto|  128|57245|2021-01-14T16:33:...|
 |    17|[[32, 19, 0, 427]...|    us|   120|      auto|   90|80081|2021-01-14T17:24:...|
@@ -25,14 +24,12 @@
 |    15|[[32, 22, 1, 369]...|    us|   124|      auto|  131|56762|2021-01-15T13:51:...|
 |    13|[[32, 21, 0, 317]...|    us|   129|      auto|  142|54413|2021-01-15T13:52:...|
 |    11|[[32, 21, 1, 365]...|    us|   121|      auto|  151|48094|2021-01-15T13:53:...|
-+------+--------------------+------+------+----------+-----+-----+--------------------+
 only showing top 20 rows
 
 > dataframe.select("histogram").show();
 
-+--------------------+
 |           histogram|
-+--------------------+
+|--------------------|
 |[[32, 23, 0, 352]...|
 |[[32, 22, 2, 295]...|
 |[[32, 19, 0, 427]...|
@@ -53,32 +50,30 @@ only showing top 20 rows
 |[[32, 22, 1, 369]...|
 |[[32, 21, 0, 317]...|
 |[[32, 21, 1, 365]...|
-+--------------------+
 only showing top 20 rows
 
 > dataframe.printSchema();
 
-root
-|-- errors: long (nullable = true)
-|-- histogram: array (nullable = true)
-|    |-- element: struct (containsNull = true)
-|    |    |-- charCode: long (nullable = true)
-|    |    |-- hitCount: long (nullable = true)
-|    |    |-- missCount: long (nullable = true)
-|    |    |-- timeToType: long (nullable = true)
-|-- layout: string (nullable = true)
-|-- length: long (nullable = true)
-|-- lessonType: string (nullable = true)
-|-- speed: long (nullable = true)
-|-- time: long (nullable = true)
+root  
+|-- errors: long (nullable = true)  
+|-- histogram: array (nullable = true)  
+|    |-- element: struct (containsNull = true)  
+|    |    |-- charCode: long (nullable = true)  
+|    |    |-- hitCount: long (nullable = true)  
+|    |    |-- missCount: long (nullable = true)  
+|    |    |-- timeToType: long (nullable = true)  
+|-- layout: string (nullable = true)  
+|-- length: long (nullable = true)  
+|-- lessonType: string (nullable = true)  
+|-- speed: long (nullable = true)  
+|-- time: long (nullable = true)  
 |-- timeStamp: string (nullable = true)
 
 > dataframe.createOrReplaceTempView("dataframeView");
 > sparkSession.sql("SELECT speed FROM dataframeView").show();
 
-+-----+
 |speed|
-+-----+
+|-----|
 |  141|
 |  128|
 |   90|
@@ -99,14 +94,12 @@ root
 |  131|
 |  142|
 |  151|
-+-----+
 only showing top 20 rows
 
 > dataframe.select(explode(col("histogram"))).show();
 
-+-----------------+
 |              col|
-+-----------------+
+|-----------------|
 | [32, 23, 0, 352]|
 |[101, 39, 3, 328]|
 |[105, 13, 1, 392]|
@@ -127,5 +120,4 @@ only showing top 20 rows
 | [108, 7, 2, 206]|
 |[110, 13, 1, 150]|
 |[114, 6, 1, 1020]|
-+-----------------+
 only showing top 20 rows
