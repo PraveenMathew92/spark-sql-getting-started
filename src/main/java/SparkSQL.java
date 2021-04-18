@@ -1,6 +1,6 @@
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.*;
+import static org.apache.spark.sql.functions.col;
+import static org.apache.spark.sql.functions.explode;
 
 public class SparkSQL {
     private static final String JSON_FILE_PATH =
@@ -32,5 +32,9 @@ public class SparkSQL {
         dataframe.createOrReplaceTempView("dataframeView");
         sparkSession.sql("SELECT speed FROM dataframeView")
                     .show();
+
+        // Explode a column of array to individual elements
+        dataframe.select(explode(col("histogram")))
+                .show();
     }
 }
